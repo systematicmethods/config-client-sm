@@ -1,0 +1,24 @@
+{
+   "name":"myapp",
+   "profiles":[
+      "default"
+   ],
+   "label": "other",
+   "version":null,
+   "state":null,
+   "propertySources":[
+      {
+         "name":"vault:myapp",
+         "source":{
+            "foo":"myappsbar"
+         }
+      },
+      {
+         "name":"vault:application",
+         "source":{
+            "baz":"bam",
+            "foo":"bar"
+         }
+      }
+   ]
+}

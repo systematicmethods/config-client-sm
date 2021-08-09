@@ -1,13 +1,14 @@
 
 import os
+import requests
 
 class ClientConfig():
     def __init__(
         self,
-        server = os.getenv("CONFIGSERVER", "http://localhost:8888"),
-        app_name = os.getenv("APPNAME"),
-        profile = os.getenv("PROFILE"),
-        label = os.getenv("LABEL")
+        server: str = os.getenv("CONFIG_SERVER", "http://localhost:8888"),
+        app_name: str  = os.getenv("CONFIG_APPNAME"),
+        profile: str  = os.getenv("CONFIG_PROFILE"),
+        label: str  = os.getenv("CONFIG_LABEL")
     ):
         self.server = server
         self.app_name = app_name
@@ -16,4 +17,8 @@ class ClientConfig():
 
     def get_url(self) -> str:
         return f"{self.server}/{self.app_name}/{self.profile}/{self.label}"
+
+    def load(self) -> dict:
+        result = requests.get(self.get_url())
+        return result.json()
 

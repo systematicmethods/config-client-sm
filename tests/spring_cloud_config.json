@@ -9,8 +9,12 @@
    "propertySources":[
       {
          "name":"vault:myapp",
-         "source":{
-            "foo":"myappsbar"
+         "source": {
+            "foo":"myappsbar",
+            "foo1": {
+               "p1": "p11,",
+               "p2": 122
+            }
          }
       },
       {

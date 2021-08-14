@@ -12,16 +12,35 @@
          "source": {
             "foo":"myappsbar",
             "foo1": {
-               "p1": "p11,",
+               "p1": "p11",
                "p2": 122
             }
          }
       },
       {
-         "name":"vault:application",
-         "source":{
-            "baz":"bam",
-            "foo":"bar"
+         "name": "vault:application",
+         "source": {
+            "baz": "bam",
+            "foo": "bar",
+            "foo1": {
+               "p1": "p11",
+               "p2": 122,
+               "foo1": {
+                  "p3": "p31",
+                  "p4": 122
+               }
+            }
+         }
+      },
+      {
+         "name": "vault:application2",
+         "source": {
+            "baz": "bam",
+            "foo": "bar",
+            "foo1.p1": "p111",
+            "foo1.p2": "p121",
+            "foo1.foo2.p1": "p1211",
+            "foo1.foo2.p2": "p1211"
          }
       }
    ]

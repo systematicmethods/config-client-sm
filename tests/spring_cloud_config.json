@@ -40,7 +40,14 @@
             "foo1.p1": "p111",
             "foo1.p2": "p121",
             "foo1.foo2.p1": "p1211",
-            "foo1.foo2.p2": "p1211"
+            "foo1.foo2.p3": "${server.int}",
+            "foo1.foo2.p4": "p1211"
+         }
+      },
+      {
+         "name":"vault:environment",
+         "source": {
+            "server.int":"server_int_1"
          }
       }
    ]

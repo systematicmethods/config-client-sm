@@ -2,7 +2,7 @@
 import os
 import requests
 import json
-from jsonpath_ng import jsonpath, parse, DatumInContext
+
 
 class ClientConfig():
     def __init__(
@@ -34,7 +34,7 @@ class ClientConfig():
     def get_properties(self) -> dict:
         return self.result["propertySources"]
 
-    def get_property_rec(self, name):
+    def get_property(self, name):
         def get_val(v: dict, name: str):
             if type(v) == dict and v.get(name) is not None:
                 return v.get(name)
@@ -54,20 +54,22 @@ class ClientConfig():
                     v = source.get('source')
                     ret = get_val(v, name)
                     if ret is not None:
+                        if ret.startswith('${') and ret.endswith('}'):
+                            return self.get_property(ret.removeprefix('${').removesuffix('}'))
                         return ret
         return None
 
-    def get_property(self, name) -> str:
-        expression = f'$.propertySources[*].source.{name}'
-        jsonpath = parse(expression)
-        res: DatumInContext = jsonpath.find(self.result)
-
-        # res2 = parse('propertySources[*].source').find(self.result)
-        # res3 = json.loads(self.json).get('propertySources')
-        #
-        # jsonpath_expr = parse('foo[*].baz')
-        # res4 = parse('foo[*].baz').find({'foo': [{'baz': 1}, {'baz': 2}]})
-        # res5 = parse('$.name').find('{"name": "it" }')
-        if len(res) > 0:
-            return res[0].value
-        return None
+    # def get_property(self, name) -> str:
+    #     expression = f'$.propertySources[*].source.{name}'
+    #     jsonpath = parse(expression)
+    #     res: DatumInContext = jsonpath.find(self.result)
+    #
+    #     # res2 = parse('propertySources[*].source').find(self.result)
+    #     # res3 = json.loads(self.json).get('propertySources')
+    #     #
+    #     # jsonpath_expr = parse('foo[*].baz')
+    #     # res4 = parse('foo[*].baz').find({'foo': [{'baz': 1}, {'baz': 2}]})
+    #     # res5 = parse('$.name').find('{"name": "it" }')
+    #     if len(res) > 0:
+    #         return res[0].value
+    #     return None
